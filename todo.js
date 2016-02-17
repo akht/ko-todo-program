@@ -1,6 +1,6 @@
 (function() {
 
-// TODOリストに追加するオブジェクト
+	// TODOリストに追加するオブジェクト
 	function Todo(times, title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done) {
 		this.times = times;
 		this.title = title;
@@ -15,7 +15,7 @@
 		this.done = ko.observable(done);
 	}
 
-// JSONフォーマットに変換するためにプロパティだけのオブジェクトに変換するメソッド
+	// JSONフォーマットに変換するためにプロパティだけのオブジェクトに変換するメソッド
 	Todo.prototype.toPlainObject = function() {
 		return {
 			times: this.times,
@@ -35,20 +35,20 @@
 	var Model = function(localStorage) {
 		var self = this;
 
-// TODOリストの配列を定義
+		// TODOリストの配列を定義
 		self.todoList = ko.observableArray([new Todo('testa','testb', 'testc', 'testd', 'teste', 'testf', 'testg', 'testh', 'testi',false, false)]);
 
-// TODOを追加するメソッド
+		// TODOを追加するメソッド
 		self.addTodo = function(times, title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done) {
 			self.todoList.push(new Todo(times, title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done));
 		};
 
-// TODOを削除するメソッド
+		// TODOを削除するメソッド
 		self.deleteTodo = function(todo) {
 			self.todoList.remove(todo);
 		};
 
-// ローカルストレージへ保存するメソッド
+		// ローカルストレージへ保存するメソッド
 		self.save = function() {
 			if(localStorage) {
 				var list = ko.utils.arrayMap(self.todoList(), function(todo) {
@@ -59,7 +59,7 @@
 			}
 		};
 
-// ローカルストレージから読み込むメソッド
+		// ローカルストレージから読み込むメソッド
 		self.load = function() {
 			if(localStorage) {
 				var data = localStorage.getItem('todoList');
@@ -100,7 +100,7 @@
 			return myYear + "/" + myMonth + "/" + myDate;
 		};
 
-// ビューからデータを受け取りTODOの追加処理を実行するメソッド
+		// ビューからデータを受け取りTODOの追加処理を実行するメソッド
 		self.addTodo = function() {
 			model.addTodo(
 				self.timeStamp(),
