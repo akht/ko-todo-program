@@ -1,6 +1,7 @@
 (function() {
 
-	function Todo(title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done) {
+	function Todo(times, title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done) {
+		this.times = times;
 		this.title = title;
 		this.con_c = con_c;
 		this.con_d = con_d;
@@ -15,6 +16,7 @@
 
 	Todo.prototype.toPlainObject = function() {
 		return {
+			times: this.times,
 			title: this.title,
 			con_c: this.content_c,
 			con_d: this.content_d,
@@ -31,10 +33,10 @@
 	var Model = function(localStorage) {
 		var self = this;
 
-		self.todoList = ko.observableArray([new Todo('testb', 'testc', 'testd', 'teste', 'testf', 'testg', 'testh', 'testi',false, false)]);
+		self.todoList = ko.observableArray([new Todo('testa','testb', 'testc', 'testd', 'teste', 'testf', 'testg', 'testh', 'testi',false, false)]);
 
-		self.addTodo = function(title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done) {
-			self.todoList.push(new Todo(title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done));
+		self.addTodo = function(times, title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done) {
+			self.todoList.push(new Todo(times, title, con_c, con_d, con_e, con_f, con_g, con_h, con_i, doing, done));
 		};
 
 		self.deleteTodo = function(todo) {
@@ -59,7 +61,7 @@
 
 					var list = ko.utils.parseJson(data);
 					ko.utils.arrayForEach(list, function(todo) {
-						self.addTodo(todo.title, todo.con_c, todo.con_d, todo.con_e, todo.con_f, todo.con_g, todo.con_h, todo.con_i, todo.doing, todo.done);
+						self.addTodo(todo.times, todo.title, todo.con_c, todo.con_d, todo.con_e, todo.con_f, todo.con_g, todo.con_h, todo.con_i, todo.doing, todo.done);
 					});
 				}
 			}
@@ -83,8 +85,17 @@
 		self.content_h = ko.observable('');
 		self.content_i = ko.observable('');
 
+		self.timeStamp = function() {
+			var date = new Date();
+			var myYear = date.getFullYear();
+			var myMonth = date.getMonth() + 1;
+			var myDate = date.getDate();
+			return myYear + "/" + myMonth + "/" + myDate;
+		};
+
 		self.addTodo = function() {
 			model.addTodo(
+				self.timeStamp(),
 				self.titleName(),
 				self.content_c(),
 				self.content_d(),
@@ -106,7 +117,6 @@
 			self.content_h('');
 			self.content_i('');
 
-			console.log(model.todoList());
 		};
 
 

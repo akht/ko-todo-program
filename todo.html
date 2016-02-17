@@ -18,7 +18,7 @@
 	<div id="content">
 		<h2>やることリスト</h2>
 
-		<form data-bind="submit: addTodo">
+		<form data-bind="submit: addTodo, timeStamp">
 			<input type="text" placeholder="b" data-bind="value: titleName">
 			<input type="text" placeholder="c" data-bind="value: content_c"><br>
 			<input type="text" placeholder="d" data-bind="value: content_d">
@@ -51,7 +51,7 @@
 				<tr data-bind="css: {checkItem: doing, endItem: done}">
 					<td><input type="checkbox" data-bind="checked: doing"></td>
 					<td><input type="checkbox" data-bind="checked: done"></td>
-					<td>time</td>
+					<td data-bind="text: times">a</td>
 					<td data-bind="text: title">b</td>
 					<td data-bind="text: con_c">c</td>
 					<td data-bind="text: con_d">d</td>
@@ -67,6 +67,6 @@
 	</div>
 
 	<script src="knockout-3.4.0.js"></script>
-	<script src="test4.js"></script>
+	<script src="todo.js"></script>
 </body>
 </html>
